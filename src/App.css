@@ -20,3 +20,29 @@
 .App-link {
   color: #09d3ac;
 }
+
+.btn {
+  width: 50px;
+  height: 50px;
+  color: black;
+}
+
+.displayBox {
+  background-color: white;
+  color: black;
+  width: 300px;
+  height: 100px;
+  text-align: right;
+}
+
+#equation {
+  font-size: 16px;
+}
+
+button[type="delete"] {
+  background-color: red;
+}
+
+button[type="action"] {
+  background-color: lightblue;
+}
