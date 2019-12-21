@@ -69,28 +69,28 @@ class App extends React.Component {
   handleAction(event) {
     switch (event.target.value) {
       case "+/-":
-        if (this.state.currDisp !== 0) {
+        if (this.state.currDisp !== "") {
           this.setState({
             currDisp: +(parseFloat(this.state.currDisp) * -1).toFixed(4)
           });
         }
         break;
       case "%":
-        if (this.state.currDisp !== 0) {
+        if (this.state.currDisp !== "") {
           this.setState({
             currDisp: +(parseFloat(this.state.currDisp) * 0.01).toFixed(4)
           });
         }
         break;
       case "1/":
-        if (this.state.currDisp !== 0) {
+        if (this.state.currDisp !== "") {
           this.setState({
             currDisp: +(1 / parseFloat(this.state.currDisp)).toFixed(4)
           });
         }
         break;
       case "√":
-        if (this.state.currDisp !== 0) {
+        if (this.state.currDisp !== "") {
           this.setState({
             currDisp: +(Math.sqrt(parseFloat(this.state.currDisp))).toFixed(4)
           });
@@ -163,7 +163,7 @@ class App extends React.Component {
     else if (event.target.value === "DEL" && !flagFin) {
       if (this.state.currDisp.length === 1) {
         this.setState({
-          currDisp: 0
+          currDisp: "0"
         });
       }
       else {
