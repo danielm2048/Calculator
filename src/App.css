@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "digital-7regular";
+  src: url("./Fonts/digital-7-webfont.woff2") format("woff2"),
+    url("./Fonts/digital-7-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 .App {
   text-align: center;
 }
@@ -14,35 +22,41 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
+  font-family: "digital-7regular";
   color: white;
 }
 
-.App-link {
-  color: #09d3ac;
-}
-
 .btn {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   color: black;
+  font-size: 24px;
 }
 
 .displayBox {
-  background-color: white;
-  color: black;
-  width: 300px;
+  background-color: rgb(155, 155, 155);
+  color: rgb(0, 0, 0);
+  width: 350px;
   height: 100px;
   text-align: right;
+  margin-bottom: 10px;
+  border-radius: 10px;
 }
 
 #equation {
-  font-size: 16px;
+  font-size: 24px;
 }
 
-button[type="delete"] {
-  background-color: red;
+#display {
+  font-size: 36px;
 }
 
-button[type="action"] {
-  background-color: lightblue;
+h1 {
+  font-size: 48px;
+  margin-bottom: 2em;
+}
+
+h4 {
+  color: rgb(83, 168, 248);
+  margin-top: 2em;
 }

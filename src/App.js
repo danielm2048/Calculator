@@ -1,19 +1,15 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
 
-import { connect } from 'react-redux';
-import { addOper, deleteOper } from './actions';
-import { reversePolishNotation } from './RPN';
+import { connect } from "react-redux";
+import { addOper, deleteOper } from "./actions";
+import { reversePolishNotation } from "./RPN";
+
+import DisplayBox from "./Components/DisplayBox";
+import CalcButtonTable from "./Components/CalcButtonTable";
+import MadeBy from "./Components/MadeBy";
 
 let flagFin = false;
-
-const CalcButton = (props) => {
-  return (
-    <div className="col-xs-3">
-      <button id={props.id} className="btn btn-default btn-block" onClick={props.onClick} value={props.sign} type={props.type}>{props.sign}</button>
-    </div>
-  );
-}
 
 class App extends React.Component {
   constructor(props) {
@@ -23,7 +19,7 @@ class App extends React.Component {
       currDisp: "0",
       lastOp: "",
       lastNum: "0"
-    }
+    };
     this.handleNumber = this.handleNumber.bind(this);
     this.handleAction = this.handleAction.bind(this);
     this.handleEquals = this.handleEquals.bind(this);
@@ -38,8 +34,7 @@ class App extends React.Component {
           currDisp: "0" + event.target.value,
           lastOp: ""
         });
-      }
-      else {
+      } else {
         this.props.deleteOper();
         this.setState({
           fullDisp: "",
@@ -48,16 +43,17 @@ class App extends React.Component {
         });
       }
       flagFin = false;
-    }
-    else if (this.state.currDisp === "0" && event.target.value !== ".") {
+    } else if (this.state.currDisp === "0" && event.target.value !== ".") {
       if (this.state.lastOp !== "") {
         this.props.addOper(this.state.lastOp);
       }
       this.setState({
         currDisp: event.target.value
       });
-    }
-    else if (event.target.value !== "." || !this.state.currDisp.includes(".")) {
+    } else if (
+      event.target.value !== "." ||
+      !this.state.currDisp.includes(".")
+    ) {
       if (this.state.lastOp !== "" && this.state.currDisp.length === 0) {
         this.props.addOper(this.state.lastOp);
       }
@@ -92,7 +88,7 @@ class App extends React.Component {
       case "√":
         if (this.state.currDisp !== "") {
           this.setState({
-            currDisp: +(Math.sqrt(parseFloat(this.state.currDisp))).toFixed(4)
+            currDisp: +Math.sqrt(parseFloat(this.state.currDisp)).toFixed(4)
           });
         }
         break;
@@ -106,18 +102,19 @@ class App extends React.Component {
             lastOp: event.target.value
           });
           flagFin = false;
-        }
-        else if (this.state.currDisp !== "") {
+        } else if (this.state.currDisp !== "") {
           this.props.addOper(this.state.currDisp);
           this.setState({
-            fullDisp: this.state.fullDisp + this.state.currDisp + event.target.value,
+            fullDisp:
+              this.state.fullDisp + this.state.currDisp + event.target.value,
             currDisp: "",
             lastOp: event.target.value
           });
-        }
-        else {
+        } else {
           this.setState({
-            fullDisp: this.state.fullDisp.substring(0, this.state.fullDisp.length - 1) + event.target.value,
+            fullDisp:
+              this.state.fullDisp.substring(0, this.state.fullDisp.length - 1) +
+              event.target.value,
             lastOp: event.target.value
           });
         }
@@ -131,18 +128,17 @@ class App extends React.Component {
         fullDisp: this.state.fullDisp + "0=",
         lastNum: this.state.currDisp
       });
-    }
-    else {
+    } else {
       if (flagFin) {
         this.props.deleteOper();
         this.props.addOper(this.state.currDisp);
         this.props.addOper(this.state.lastOp);
         this.props.addOper(this.state.lastNum);
         this.setState({
-          fullDisp: this.state.currDisp + this.state.lastOp + this.state.lastNum + "="
+          fullDisp:
+            this.state.currDisp + this.state.lastOp + this.state.lastNum + "="
         });
-      }
-      else {
+      } else {
         this.props.addOper(this.state.currDisp);
         this.setState({
           fullDisp: this.state.fullDisp + this.state.currDisp + "=",
@@ -159,20 +155,20 @@ class App extends React.Component {
         currDisp: "0",
         lastOp: ""
       });
-    }
-    else if (event.target.value === "DEL" && !flagFin) {
+    } else if (event.target.value === "DEL" && !flagFin) {
       if (this.state.currDisp.length === 1) {
         this.setState({
           currDisp: "0"
         });
-      }
-      else {
+      } else {
         this.setState({
-          currDisp: this.state.currDisp.substr(0, this.state.currDisp.length - 1)
+          currDisp: this.state.currDisp.substr(
+            0,
+            this.state.currDisp.length - 1
+          )
         });
       }
-    }
-    else if (event.target.value === "CE") {
+    } else if (event.target.value === "CE") {
       if (flagFin) {
         this.props.deleteOper();
         this.setState({
@@ -180,8 +176,7 @@ class App extends React.Component {
           currDisp: "0",
           lastOp: ""
         });
-      }
-      else {
+      } else {
         this.setState({
           currDisp: "0"
         });
@@ -203,62 +198,27 @@ class App extends React.Component {
       <div className="App">
         <header className="App-header">
           <h1>Calculator</h1>
-          <br />
-          <div className="row displayBox">
-            <p id="equation">{this.state.fullDisp}</p>
-            <p id="display">{this.state.currDisp}</p>
-          </div>
-          <div className="row">
-            <CalcButton id="perc" sign="%" type="action" onClick={this.handleAction} />
-            <CalcButton id="CE" sign="CE" type="delete" onClick={this.handleDelete} />
-            <CalcButton id="clear" sign="C" type="delete" onClick={this.handleDelete} />
-            <CalcButton id="del" sign="DEL" type="delete" onClick={this.handleDelete} />
-          </div>
-          <div className="row">
-            <CalcButton id="oneDiv" sign="1/" type="action" onClick={this.handleAction} />
-            <CalcButton id="sqrt" sign="√" type="action" onClick={this.handleAction} />
-            <CalcButton id="pow" sign="^" type="action" onClick={this.handleAction} />
-            <CalcButton id="divide" sign="/" type="action" onClick={this.handleAction} />
-          </div>
-          <div className="row">
-            <CalcButton id="seven" sign="7" type="number" onClick={this.handleNumber} />
-            <CalcButton id="eight" sign="8" type="number" onClick={this.handleNumber} />
-            <CalcButton id="nine" sign="9" type="number" onClick={this.handleNumber} />
-            <CalcButton id="multiply" sign="*" type="action" onClick={this.handleAction} />
-          </div>
-          <div className="row">
-            <CalcButton id="four" sign="4" type="number" onClick={this.handleNumber} />
-            <CalcButton id="five" sign="5" type="number" onClick={this.handleNumber} />
-            <CalcButton id="six" sign="6" type="number" onClick={this.handleNumber} />
-            <CalcButton id="subtract" sign="-" type="action" onClick={this.handleAction} />
-          </div>
-          <div className="row">
-            <CalcButton id="one" sign="1" type="number" onClick={this.handleNumber} />
-            <CalcButton id="two" sign="2" type="number" onClick={this.handleNumber} />
-            <CalcButton id="three" sign="3" type="number" onClick={this.handleNumber} />
-            <CalcButton id="add" sign="+" type="action" onClick={this.handleAction} />
-          </div>
-          <div className="row">
-            <CalcButton id="plusMinus" sign="+/-" type="action" onClick={this.handleAction} />
-            <CalcButton id="zero" sign="0" type="number" onClick={this.handleNumber} />
-            <CalcButton id="decimal" sign="." type="number" onClick={this.handleNumber} />
-            <CalcButton id="equals" sign="=" type="action" onClick={this.handleEquals} />
-          </div>
-          <br />
-          <h6>Made By Daniel Mimoun</h6>
+          <DisplayBox
+            fullDisp={this.state.fullDisp}
+            currDisp={this.state.currDisp}
+          />
+          <CalcButtonTable
+            handleAction={this.handleAction}
+            handleDelete={this.handleDelete}
+            handleNumber={this.handleNumber}
+            handleEquals={this.handleEquals}
+          />
+          <MadeBy />
         </header>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return { result: state }
+const mapStateToProps = state => {
+  return { result: state };
 };
 
-const mapDispatchToProps = { addOper, deleteOper }
+const mapDispatchToProps = { addOper, deleteOper };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
