@@ -1,10 +1,11 @@
 import React from "react";
-import "./App.css";
+import "./App.sass";
 
 import { connect } from "react-redux";
 import { addOper, deleteOper } from "./actions";
 import { reversePolishNotation } from "./RPN";
 
+import LightSwitch from "./Components/LightSwitch";
 import DisplayBox from "./Components/DisplayBox";
 import CalcButtonTable from "./Components/CalcButtonTable";
 import MadeBy from "./Components/MadeBy";
@@ -197,6 +198,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
+          <LightSwitch />
           <h1>Calculator</h1>
           <DisplayBox
             fullDisp={this.state.fullDisp}

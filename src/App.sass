@@ -1,0 +1,74 @@
+$background-color: #282c34
+
+@font-face
+  font-family: "digital-7regular"
+  src: url("./Fonts/digital-7-webfont.woff2") format("woff2"), url("./Fonts/digital-7-webfont.woff") format("woff")
+  font-weight: normal
+  font-style: normal
+
+.App
+  text-align: center
+
+  &-header
+    background-color: $background-color
+    min-height: 100vh
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    font-size: calc(10px + 2vmin)
+    font-family: "digital-7regular"
+    color: white
+
+.btn
+  width: 60px
+  height: 60px
+  color: black
+  font-size: 24px
+
+.displayBox
+  background-color: rgb(155, 155, 155)
+  color: rgb(0, 0, 0)
+  width: 350px
+  height: 100px
+  text-align: right
+  margin-bottom: 10px
+  border-radius: 10px
+
+#equation
+  font-size: 24px
+
+#display
+  font-size: 36px
+
+h1
+  font-size: 48px
+  margin-bottom: 2em
+
+h4
+  color: rgb(83, 168, 248)
+  margin-top: 2em
+
+.top-right
+  position: absolute
+  top: 18px
+  right: 15px
+
+label
+  display: inline-block
+  width: 40px
+  height: 40px
+
+input
+  opacity: 0
+  width: 0
+  height: 0
+
+label.crossRotate
+  content: url("./LightPics/light.png")
+  transition-duration: 1.5s
+  transition-property: transform
+
+#switch:checked + label.crossRotate
+  content: url("./LightPics/dark.png")
+  transform: rotate(360deg)

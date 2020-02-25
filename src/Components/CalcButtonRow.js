@@ -11,6 +11,7 @@ class CalcButtonRow extends React.Component {
           sign={this.props.data[i].sign}
           type={this.props.data[i].type}
           onClick={this.props.data[i].onClick}
+          key={this.props.data[i].id}
         />
       );
     }

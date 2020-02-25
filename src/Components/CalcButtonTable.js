@@ -163,7 +163,7 @@ export default class CalcButtonTable extends React.Component {
     ];
     let elements = [];
     for (let i = 0; i < 6; i++) {
-      elements.push(<CalcButtonRow data={calcProps[i]} />);
+      elements.push(<CalcButtonRow data={calcProps[i]} key={i} />);
     }
     return <div>{elements}</div>;
   }
